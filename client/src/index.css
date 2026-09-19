@@ -189,6 +189,16 @@ button { border: 0; }
 .icon-button { width: 40px; height: 40px; border-radius: 12px; background: var(--secondary); color: var(--ink); }
 .portfolio-link { display: inline-flex; align-items: center; gap: .35rem; color: var(--sage); transition: color 160ms ease; }
 .portfolio-link:hover { color: var(--coral); }
+.language-switch { display: inline-flex; align-items: center; gap: 2px; border: 1px solid rgba(36,56,74,.12); border-radius: 999px; padding: 3px; background: var(--secondary); }
+.language-switch button { min-width: 30px; height: 28px; border-radius: 999px; color: var(--ink); font-size: .68rem; font-weight: 800; transition: background-color 160ms ease, color 160ms ease, transform 160ms ease; }
+.language-switch button:hover { color: var(--sage); }
+.language-switch button.is-selected { background: var(--sage); color: #ffffff; box-shadow: 0 3px 8px rgba(120,165,157,.25); }
+.language-switch button:active { transform: scale(.95); }
+.category-filter { border: 1px solid transparent; border-radius: 999px; padding: .5rem 1rem; color: rgba(36,56,74,.62); background: rgba(36,56,74,.06); font-size: .75rem; font-weight: 800; transition: background-color 160ms ease, color 160ms ease, transform 160ms ease, border-color 160ms ease; }
+.category-filter:hover { transform: translateY(-1px); border-color: rgba(120,165,157,.45); background: rgba(120,165,157,.12); color: var(--ink); }
+.category-filter.is-active { border-color: var(--sage); background: var(--sage); color: #ffffff; box-shadow: 0 5px 12px rgba(120,165,157,.22); }
+.category-filter.is-active:hover { background: #648f88; color: #ffffff; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid rgba(120,165,157,.45); outline-offset: 3px; }
 
 .hero-panel {
   position: relative;
