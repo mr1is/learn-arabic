@@ -263,3 +263,12 @@ button { border: 0; }
   .hero-panel .relative.z-10 { min-height: 520px; }
   .closing-card { align-items: flex-start; flex-direction: column; }
 }
+
+.letter-tile { display: flex; min-height: 84px; flex-direction: column; align-items: center; justify-content: center; gap: .18rem; border: 1px solid rgba(16,35,63,.08); border-radius: 16px; background: var(--card); color: var(--ink); transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
+.letter-tile > span { font-family: 'Cairo', system-ui, sans-serif; font-size: 2rem; font-weight: 800; line-height: 1; }
+.letter-tile small { max-width: 100%; overflow: hidden; color: rgba(36,56,74,.48); font-size: .58rem; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+.letter-tile:hover, .letter-tile.is-selected { border-color: var(--accent-color); box-shadow: 0 8px 20px rgba(16,35,63,.09); transform: translateY(-3px); }
+.letter-detail { min-height: 350px; border: 1px solid rgba(16,35,63,.08); border-radius: 24px; padding: 1.4rem; background: linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 13%, var(--card)), var(--card) 60%); box-shadow: 0 14px 32px rgba(16,35,63,.06); }
+.letter-detail::before { content: ''; display: block; width: 34px; height: 4px; margin-bottom: 1.2rem; border-radius: 99px; background: var(--accent-color); }
+.letter-big { display: grid; width: 102px; height: 112px; place-items: center; border-radius: 22px; background: rgba(255,255,255,.72); color: var(--accent-color); font-family: 'Cairo', system-ui, sans-serif; font-size: 5rem; font-weight: 800; line-height: 1; box-shadow: inset 0 0 0 1px rgba(16,35,63,.05); }
+@media (max-width: 639px) { .letter-detail { min-height: 0; } .letter-big { width: 86px; height: 94px; font-size: 4rem; } }
