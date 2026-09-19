@@ -44,6 +44,14 @@ type QuizQuestion = {
   answer: string;
 };
 
+type MatchCard = {
+  word: string;
+  meaning: string;
+  letter: string;
+  image: string;
+  choices: string[];
+};
+
 const vocabulary: VocabularyItem[] = [
   { arabic: "مَرْحَبًا", transliteration: "Marhaban", meaning: "Hello", example: "مَرْحَبًا! كَيْفَ حَالُكَ؟", category: "Greetings", color: "coral" },
   { arabic: "شُكْرًا", transliteration: "Shukran", meaning: "Thank you", example: "شُكْرًا جَزِيلًا عَلَى مُسَاعَدَتِكَ.", category: "Polite words", color: "gold" },
@@ -97,6 +105,17 @@ const quizQuestions: QuizQuestion[] = [
   { prompt: "ما الكلمة التي تعني «Water»؟", hint: "كلمة قصيرة من ثلاثة أحرف.", options: ["ماء", "نور", "باب", "قلم"], answer: "ماء" },
 ];
 
+const matchCards: MatchCard[] = [
+  { word: "تُفَّاح", meaning: "apple", letter: "ت", image: "/manus-storage/game-apple_74c366f6.png", choices: ["تُفَّاح", "قِطَّة", "شَمْس", "كِتَاب"] },
+  { word: "قِطَّة", meaning: "cat", letter: "ق", image: "/manus-storage/game-cat_16a4c3ab.png", choices: ["شَمْس", "قِطَّة", "كِتَاب", "تُفَّاح"] },
+  { word: "شَمْس", meaning: "sun", letter: "ش", image: "/manus-storage/game-sun_667c5f5e.png", choices: ["كِتَاب", "تُفَّاح", "شَمْس", "قِطَّة"] },
+  { word: "كِتَاب", meaning: "book", letter: "ك", image: "/manus-storage/game-book_4af57f67.png", choices: ["قِطَّة", "كِتَاب", "شَمْس", "تُفَّاح"] },
+];
+
+function getLetterChoices(card: MatchCard) {
+  return [card.letter, ...["أ", "ب", "م", "س"].filter((letter) => letter !== card.letter)];
+}
+
 const phrases = [
   { arabic: "أَيْنَ الْمَطْعَم؟", meaning: "Where is the restaurant?", tag: "Conversation" },
   { arabic: "أَنَا أَتَعَلَّمُ الْعَرَبِيَّة.", meaning: "I am learning Arabic.", tag: "Introducing yourself" },
@@ -122,6 +141,10 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("All");
   const [selectedLetter, setSelectedLetter] = useState(letters[0]);
+  const [gameType, setGameType] = useState<"words" | "letters">("words");
+  const [gameIndex, setGameIndex] = useState(0);
+  const [gameChoice, setGameChoice] = useState<string | null>(null);
+  const [gameScore, setGameScore] = useState(0);
   const [quizIndex, setQuizIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
@@ -137,6 +160,9 @@ function Home() {
 
   const scrollTo = (id: string, label: string) => { setActiveNav(label); document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" }); };
   const chooseAnswer = (answer: string) => { if (selectedAnswer) return; setSelectedAnswer(answer); if (answer === question.answer) setScore((current) => current + 1); };
+  const chooseGameOption = (choice: string) => { if (gameChoice) return; setGameChoice(choice); if (choice === (gameType === "words" ? matchCards[gameIndex].word : matchCards[gameIndex].letter)) setGameScore((current) => current + 1); };
+  const nextGameCard = () => { setGameIndex((current) => (current + 1) % matchCards.length); setGameChoice(null); };
+  const resetGame = () => { setGameIndex(0); setGameChoice(null); setGameScore(0); };
   const nextQuestion = () => { if (quizIndex === quizQuestions.length - 1) { setCompleted(true); return; } setQuizIndex((current) => current + 1); setSelectedAnswer(null); };
   const resetQuiz = () => { setQuizIndex(0); setSelectedAnswer(null); setScore(0); setCompleted(false); };
 
@@ -144,7 +170,7 @@ function Home() {
     <div dir="ltr" className="min-h-screen overflow-x-hidden bg-paper text-ink">
       <header className="sticky top-0 z-40 border-b border-ink/10 bg-paper/90 backdrop-blur-xl"><div className="container flex h-[74px] items-center justify-between gap-6">
         <button className="flex items-center gap-3 text-right" onClick={() => scrollTo("top", "Home")} aria-label="Back to home"><span className="brand-mark"><span>ع</span></span><span><span className="block font-display text-lg font-bold leading-none text-ink">Learn Arabic</span><span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.22em] text-ink/45" dir="ltr">ARABIC · DAILY</span></span></button>
-        <nav className="hidden items-center gap-7 text-sm font-bold text-ink/55 md:flex" aria-label="Main navigation">{[["top", "Home"], ["library", "Library"], ["practice", "Practice"]].map(([id, label]) => <button key={label} onClick={() => scrollTo(id, label)} className={`nav-link ${activeNav === label ? "is-active" : ""}`}>{label}</button>)}</nav>
+        <nav className="hidden items-center gap-7 text-sm font-bold text-ink/55 md:flex" aria-label="Main navigation">{[["top", "Home"], ["library", "Library"], ["games", "Games"], ["practice", "Practice"]].map(([id, label]) => <button key={label} onClick={() => scrollTo(id, label)} className={`nav-link ${activeNav === label ? "is-active" : ""}`}>{label}</button>)}</nav>
         <button className="button-ghost hidden sm:flex" onClick={() => scrollTo("quiz", "Practice")}>Start a quick lesson <ArrowLeft size={16} /></button><button className="icon-button md:hidden" onClick={() => scrollTo("library", "Library")} aria-label="Go to learning library"><BookOpen size={19} /></button>
       </div></header>
 
@@ -152,6 +178,21 @@ function Home() {
 
         <section id="library" className="container scroll-mt-24 pb-20 sm:pb-28"><SectionLabel eyebrow="01 / Learning library">Words and letters, made simple</SectionLabel><div className="mb-8 flex flex-col gap-4 rounded-3xl border border-ink/10 bg-white/60 p-4 shadow-soft sm:flex-row sm:items-center sm:justify-between"><div className="flex rounded-2xl bg-ink/5 p-1" role="tablist" aria-label="Learning library"><button onClick={() => setLibraryTab("words")} className={`rounded-xl px-5 py-3 text-sm font-extrabold transition ${libraryTab === "words" ? "bg-ink text-paper shadow-sm" : "text-ink/55"}`} role="tab" aria-selected={libraryTab === "words"}><BookOpen size={16} className="mr-2 inline" /> Essential words</button><button onClick={() => setLibraryTab("letters")} className={`rounded-xl px-5 py-3 text-sm font-extrabold transition ${libraryTab === "letters" ? "bg-ink text-paper shadow-sm" : "text-ink/55"}`} role="tab" aria-selected={libraryTab === "letters"}>أ ب ت <span className="ml-1">Letters & sounds</span></button></div>{libraryTab === "words" && <label className="flex min-w-0 items-center gap-2 rounded-xl border border-ink/10 bg-paper px-3 py-2 text-sm"><Search size={16} className="text-ink/40" /><input value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="Search words..." className="min-w-0 bg-transparent outline-none placeholder:text-ink/35" aria-label="Search words" /></label>}</div>
           {libraryTab === "words" ? <><div className="mb-5 flex gap-2 overflow-x-auto pb-1">{categories.map((item) => <button key={item} onClick={() => setCategory(item)} className={`whitespace-nowrap rounded-full px-4 py-2 text-xs font-extrabold transition ${category === item ? "bg-sage text-white" : "bg-ink/5 text-ink/55 hover:bg-ink/10"}`}>{item}</button>)}</div><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{filteredWords.map((item, index) => <article key={item.arabic} className={`vocab-card color-${item.color}`}><div className="flex items-center justify-between gap-2"><span className="mini-number">{String(index + 1).padStart(2, "0")}</span><button className="audio-button" onClick={() => speakArabic(item.arabic)} aria-label={`Listen to ${item.arabic}`}><Volume2 size={16} /></button></div><div className="mt-8"><p className="arabic-word">{item.arabic}</p><p className="mt-2 text-xs font-bold tracking-wide text-ink/48" dir="ltr">{item.transliteration}</p></div><div className="mt-7 border-t border-ink/10 pt-4"><span className="text-[10px] font-extrabold uppercase tracking-wider text-ink/40">{item.category}</span><p className="mt-1 font-bold text-ink">{item.meaning}</p><p className="mt-2 text-xs leading-6 text-ink/55">{item.example}</p></div></article>)}</div>{filteredWords.length === 0 && <div className="rounded-2xl bg-ink/5 p-8 text-center text-sm font-bold text-ink/55">No words found. Try another search.</div>}</> : <div className="grid gap-7 lg:grid-cols-[1.2fr_.8fr] lg:items-start"><div><div className="mb-4 flex items-center justify-between"><div><p className="text-sm font-extrabold text-ink">The 28 Arabic letters</p><p className="mt-1 text-xs text-ink/50">Tap a letter, then listen and repeat.</p></div><span className="rounded-full bg-sage/15 px-3 py-1 text-xs font-extrabold text-sage">Child-friendly</span></div><div className="grid grid-cols-4 gap-2 sm:grid-cols-7">{letters.map((item) => <button key={item.letter} onClick={() => setSelectedLetter(item)} className={`letter-tile color-${item.color} ${selectedLetter.letter === item.letter ? "is-selected" : ""}`} aria-label={`Learn ${item.name}`}><span>{item.letter}</span><small>{item.name}</small></button>)}</div></div><article className={`letter-detail color-${selectedLetter.color}`}><div className="flex items-start justify-between gap-3"><div><p className="eyebrow mb-2">Letter of the moment</p><h3 className="font-display text-2xl font-extrabold text-ink">{selectedLetter.name}</h3></div><button className="audio-button large" onClick={() => speakArabic(selectedLetter.letter, 0.68)} aria-label={`Hear ${selectedLetter.name}`}><Headphones size={19} /></button></div><div className="my-4 flex items-center gap-5"><span className="letter-big">{selectedLetter.letter}</span><div><p className="text-xs font-bold uppercase tracking-wider text-ink/45">Sound</p><p className="mt-1 text-lg font-extrabold text-ink">{selectedLetter.sound}</p></div></div><div className="rounded-2xl bg-white/65 p-4"><p className="text-xs font-bold text-ink/45">Try this word</p><p className="mt-1 font-display text-3xl font-extrabold text-ink">{selectedLetter.example}</p><p className="text-sm font-bold text-ink/55">{selectedLetter.exampleMeaning}</p><button className="mt-3 flex items-center gap-2 text-xs font-extrabold text-sage" onClick={() => speakArabic(selectedLetter.example, 0.7)}><Volume2 size={14} /> Hear the example</button></div></article></div>}
+        </section>
+
+        <section id="games" className="container scroll-mt-24 pb-20 sm:pb-28">
+          <SectionLabel eyebrow="02 / Play and learn">Match, listen, and smile</SectionLabel>
+          <div className="game-shell">
+            <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-start">
+              <div><span className="game-kicker"><Sparkles size={14} /> Learning game</span><h2 className="mt-3 font-display text-3xl font-extrabold text-paper sm:text-4xl">Can you find the match?</h2><p className="mt-2 max-w-xl text-sm leading-7 text-paper/60">Look at the picture, choose the Arabic match, and listen to the word. A friendly way to learn through play.</p></div>
+              <div className="flex items-center gap-3"><span className="game-score">Score <strong>{gameScore}/{matchCards.length}</strong></span><button className="quiz-reset" onClick={resetGame}><RotateCcw size={14} /> Restart</button></div>
+            </div>
+            <div className="mt-7 flex flex-wrap gap-2"><button onClick={() => { setGameType("words"); resetGame(); }} className={`game-tab ${gameType === "words" ? "is-active" : ""}`}>Match the word</button><button onClick={() => { setGameType("letters"); resetGame(); }} className={`game-tab ${gameType === "letters" ? "is-active" : ""}`}>Match the first letter</button></div>
+            <div className="mt-8 grid gap-8 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
+              <div className="game-picture-card"><img src={matchCards[gameIndex].image} alt={matchCards[gameIndex].meaning} /><div className="flex items-center justify-between gap-3"><span className="text-xs font-bold text-ink/50">Picture {gameIndex + 1} of {matchCards.length}</span><button className="audio-button" onClick={() => speakArabic(matchCards[gameIndex].word)} aria-label="Listen to the answer"><Volume2 size={16} /></button></div></div>
+              <div><p className="text-xs font-extrabold uppercase tracking-wider text-saffron">{gameType === "words" ? "Which Arabic word is this?" : "Which letter starts this word?"}</p><p className="mt-3 font-display text-2xl font-extrabold text-paper">{gameType === "words" ? `It is a ${matchCards[gameIndex].meaning}.` : `The ${matchCards[gameIndex].meaning} begins with…`}</p><div className="mt-5 grid grid-cols-2 gap-3">{(gameType === "words" ? matchCards[gameIndex].choices : getLetterChoices(matchCards[gameIndex])).map((choice) => { const correct = gameType === "words" ? choice === matchCards[gameIndex].word : choice === matchCards[gameIndex].letter; const picked = gameChoice === choice; return <button key={choice} onClick={() => chooseGameOption(choice)} className={`game-option ${picked && correct ? "correct" : ""} ${picked && !correct ? "wrong" : ""} ${gameChoice && correct ? "correct" : ""}`}><span>{choice}</span>{gameChoice && correct && <Check size={17} />}{picked && !correct && <X size={17} />}</button>; })}</div>{gameChoice && <div className="mt-5 flex flex-wrap items-center justify-between gap-3"><p className={`text-sm font-extrabold ${((gameType === "words" ? gameChoice === matchCards[gameIndex].word : gameChoice === matchCards[gameIndex].letter)) ? "text-sage" : "text-coral"}`}>{((gameType === "words" ? gameChoice === matchCards[gameIndex].word : gameChoice === matchCards[gameIndex].letter)) ? "Amazing! You found it." : `The answer is ${gameType === "words" ? matchCards[gameIndex].word : matchCards[gameIndex].letter}.`}</p><button className="button-primary" onClick={nextGameCard}>Next card <ArrowLeft size={16} /></button></div>}</div>
+            </div>
+          </div>
         </section>
 
         <section id="practice" className="border-y border-ink/10 bg-cream scroll-mt-24"><div className="container grid gap-10 py-20 sm:py-24 lg:grid-cols-[.72fr_1.28fr] lg:items-start"><div className="lg:sticky lg:top-28"><p className="eyebrow mb-3">02 / How to learn</p><h2 className="font-display max-w-sm text-4xl font-bold leading-tight text-ink sm:text-5xl">Listen, try,<br /><span className="text-coral">then remember.</span></h2><p className="mt-5 max-w-sm text-sm leading-7 text-ink/58">Every word takes you from meaning to real use. Tap the speaker, then repeat it out loud.</p><div className="mt-8 rounded-2xl border border-ink/10 bg-paper p-5 shadow-soft"><div className="flex items-start gap-3"><span className="rounded-xl bg-saffron/20 p-2 text-[#9b761e]"><Lightbulb size={18} /></span><div><p className="text-sm font-bold">A tip for children</p><p className="mt-1 text-xs leading-6 text-ink/55">Learn three letters or words at a time. Celebrate every small sound!</p></div></div></div></div><div className="space-y-4">{phrases.map((phrase, index) => <article key={phrase.arabic} className="phrase-card group"><div className="flex items-center gap-4"><span className="phrase-index">0{index + 1}</span><div className="min-w-0 flex-1"><span className="mb-2 inline-flex rounded-full bg-ink/6 px-2.5 py-1 text-[10px] font-extrabold text-ink/50">{phrase.tag}</span><p className="font-display text-2xl font-bold text-ink sm:text-3xl">{phrase.arabic}</p><p className="mt-2 text-sm text-ink/55" dir="ltr">{phrase.meaning}</p></div><button className="audio-button large" onClick={() => speakArabic(phrase.arabic)} aria-label={`Listen to ${phrase.arabic}`}><Headphones size={19} /></button></div><div className="mt-5 h-1 overflow-hidden rounded-full bg-ink/8"><div className="h-full w-0 rounded-full bg-coral transition-all duration-500 group-hover:w-1/3" /></div></article>)}</div></div></section>
