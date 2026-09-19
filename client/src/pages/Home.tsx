@@ -73,6 +73,14 @@ const vocabulary: VocabularyItem[] = [
   { arabic: "طَعَام", transliteration: "Taʿaam", meaning: "Food", example: "الطَّعَامُ لَذِيذٌ.", category: "Everyday", color: "gold" },
   { arabic: "حُبّ", transliteration: "Hubb", meaning: "Love", example: "الحُبُّ جَمِيلٌ.", category: "Feelings", color: "sage" },
   { arabic: "فَرَح", transliteration: "Farah", meaning: "Joy", example: "أَشْعُرُ بِالْفَرَحِ.", category: "Feelings", color: "blue" },
+  { arabic: "سَلَام", transliteration: "Salaam", meaning: "Peace", example: "السَّلَامُ عَلَيْكُمْ.", category: "Greetings", color: "blue" },
+  { arabic: "مِنْ فَضْلِكَ", transliteration: "Min fadlik", meaning: "Please", example: "مِنْ فَضْلِكَ، أَعِدِ السُّؤَالَ.", category: "Polite words", color: "coral" },
+  { arabic: "مُعَلِّم", transliteration: "Muʿallim", meaning: "Teacher", example: "هَذَا مُعَلِّمِي.", category: "People", color: "gold" },
+  { arabic: "حَلِيب", transliteration: "Haleeb", meaning: "Milk", example: "أَشْرَبُ حَلِيبًا دَافِئًا.", category: "Everyday", color: "sage" },
+  { arabic: "حَدِيقَة", transliteration: "Hadeeqah", meaning: "Park", example: "نَلْعَبُ فِي الْحَدِيقَةِ.", category: "Places", color: "blue" },
+  { arabic: "دَفْتَر", transliteration: "Daftar", meaning: "Notebook", example: "أَكْتُبُ فِي دَفْتَرِي.", category: "School", color: "coral" },
+  { arabic: "وَرْدَة", transliteration: "Wardah", meaning: "Flower", example: "هَذِهِ وَرْدَةٌ جَمِيلَةٌ.", category: "Nature", color: "gold" },
+  { arabic: "كَلْب", transliteration: "Kalb", meaning: "Dog", example: "هَذَا كَلْبٌ لَطِيفٌ.", category: "Animals", color: "sage" },
 ];
 
 
@@ -97,6 +105,14 @@ const englishVocabulary: VocabularyItem[] = [
   { arabic: "Food", transliteration: "Food", meaning: "طَعَام", example: "The food is delicious.", category: "Everyday", color: "gold" },
   { arabic: "Love", transliteration: "Love", meaning: "حُبّ", example: "Love is beautiful.", category: "Feelings", color: "sage" },
   { arabic: "Joy", transliteration: "Joy", meaning: "فَرَح", example: "I feel joy.", category: "Feelings", color: "blue" },
+  { arabic: "Peace", transliteration: "Peace", meaning: "سَلَام", example: "Peace begins with kindness.", category: "Greetings", color: "blue" },
+  { arabic: "Please", transliteration: "Please", meaning: "مِنْ فَضْلِكَ", example: "Please repeat the question.", category: "Polite words", color: "coral" },
+  { arabic: "Teacher", transliteration: "Teacher", meaning: "مُعَلِّم", example: "This is my teacher.", category: "People", color: "gold" },
+  { arabic: "Milk", transliteration: "Milk", meaning: "حَلِيب", example: "I drink warm milk.", category: "Everyday", color: "sage" },
+  { arabic: "Park", transliteration: "Park", meaning: "حَدِيقَة", example: "We play in the park.", category: "Places", color: "blue" },
+  { arabic: "Notebook", transliteration: "Notebook", meaning: "دَفْتَر", example: "I write in my notebook.", category: "School", color: "coral" },
+  { arabic: "Flower", transliteration: "Flower", meaning: "وَرْدَة", example: "This flower is beautiful.", category: "Nature", color: "gold" },
+  { arabic: "Dog", transliteration: "Dog", meaning: "كَلْب", example: "This is a friendly dog.", category: "Animals", color: "sage" },
 ];
 
 const englishLetters: LetterItem[] = [
@@ -110,6 +126,12 @@ const englishQuizQuestions: QuizQuestion[] = [
   { prompt: "Choose the Arabic word for House.", hint: "It is the place where we live.", options: ["كتاب", "مدرسة", "بيت", "شارع"], answer: "بيت" },
   { prompt: "How do you say Thank you in Arabic?", hint: "It starts with the letter sheen.", options: ["من فضلك", "عفوًا", "شكرًا", "أهلًا"], answer: "شكرًا" },
   { prompt: "Which word means Water?", hint: "It is a short three-letter word.", options: ["ماء", "نور", "باب", "قلم"], answer: "ماء" },
+  { prompt: "What does «مِنْ فَضْلِكَ» mean?", hint: "Use it when asking politely.", options: ["Please", "Goodbye", "Sorry", "Welcome"], answer: "Please" },
+  { prompt: "Choose the Arabic word for Teacher.", hint: "It begins with the letter meem.", options: ["معلّم", "دفتر", "حديقة", "وردة"], answer: "معلّم" },
+  { prompt: "Which word means Flower?", hint: "It is something beautiful from nature.", options: ["حليب", "وردة", "كلب", "سلام"], answer: "وردة" },
+  { prompt: "How do you say Park in Arabic?", hint: "A place where children play.", options: ["حديقة", "مدرسة", "بيت", "سوق"], answer: "حديقة" },
+  { prompt: "Which Arabic word means Dog?", hint: "It is a friendly animal.", options: ["قطّة", "كلب", "حصان", "سمك"], answer: "كلب" },
+  { prompt: "What does «دفتر» mean?", hint: "You write lessons in it.", options: ["Notebook", "Flower", "Milk", "Teacher"], answer: "Notebook" },
 ];
 
 const letters: LetterItem[] = [
@@ -148,6 +170,12 @@ const quizQuestions: QuizQuestion[] = [
   { prompt: "اختر الترجمة الصحيحة لكلمة «بيت».", hint: "هو المكان الذي نعيش فيه.", options: ["Book", "School", "House", "Street"], answer: "House" },
   { prompt: "كيف تقول «Thank you» بالعربية؟", hint: "تبدأ بحرف الشين.", options: ["من فضلك", "عفوًا", "شكرًا", "أهلًا"], answer: "شكرًا" },
   { prompt: "ما الكلمة التي تعني «Water»؟", hint: "كلمة قصيرة من ثلاثة أحرف.", options: ["ماء", "نور", "باب", "قلم"], answer: "ماء" },
+  { prompt: "ماذا تعني كلمة «مِنْ فَضْلِكَ»؟", hint: "نستخدمها عند الطلب بأدب.", options: ["Please", "Goodbye", "Sorry", "Welcome"], answer: "Please" },
+  { prompt: "اختر الكلمة العربية التي تعني Teacher.", hint: "تبدأ بحرف الميم.", options: ["معلّم", "دفتر", "حديقة", "وردة"], answer: "معلّم" },
+  { prompt: "ما الكلمة التي تعني Flower؟", hint: "شيء جميل من الطبيعة.", options: ["حليب", "وردة", "كلب", "سلام"], answer: "وردة" },
+  { prompt: "كيف تقول Park بالعربية؟", hint: "مكان يلعب فيه الأطفال.", options: ["حديقة", "مدرسة", "بيت", "سوق"], answer: "حديقة" },
+  { prompt: "ما الكلمة العربية التي تعني Dog؟", hint: "حيوان أليف وودود.", options: ["قطّة", "كلب", "حصان", "سمك"], answer: "كلب" },
+  { prompt: "ماذا تعني كلمة «دفتر»؟", hint: "نكتب فيه الدروس.", options: ["Notebook", "Flower", "Milk", "Teacher"], answer: "Notebook" },
 ];
 
 const matchCards: MatchCard[] = [
@@ -155,6 +183,10 @@ const matchCards: MatchCard[] = [
   { word: "قِطَّة", meaning: "cat", letter: "ق", image: "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=900&q=85", choices: ["شَمْس", "قِطَّة", "كِتَاب", "تُفَّاح"] },
   { word: "شَمْس", meaning: "sun", letter: "ش", image: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=85", choices: ["كِتَاب", "تُفَّاح", "شَمْس", "قِطَّة"] },
   { word: "كِتَاب", meaning: "book", letter: "ك", image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=900&q=85", choices: ["قِطَّة", "كِتَاب", "شَمْس", "تُفَّاح"] },
+  { word: "سَلَام", meaning: "peace", letter: "س", image: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85", choices: ["سَلَام", "وَرْدَة", "كَلْب", "حَلِيب"] },
+  { word: "وَرْدَة", meaning: "flower", letter: "و", image: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85", choices: ["كَلْب", "حَلِيب", "وَرْدَة", "سَلَام"] },
+  { word: "كَلْب", meaning: "dog", letter: "ك", image: "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=900&q=85", choices: ["حَلِيب", "سَلَام", "كَلْب", "وَرْدَة"] },
+  { word: "حَلِيب", meaning: "milk", letter: "ح", image: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=900&q=85", choices: ["وَرْدَة", "حَلِيب", "سَلَام", "كَلْب"] },
 ];
 
 function getLetterChoices(card: MatchCard) {
@@ -199,7 +231,7 @@ function Home() {
   const [category, setCategory] = useState("All");
   const [selectedLetter, setSelectedLetter] = useState<LetterItem>(englishLetters[0]);
   const [gameType, setGameType] = useState<"words" | "letters">("words");
-  const [gameIndex, setGameIndex] = useState(0);
+  const [gameIndex, setGameIndex] = useState(() => Math.floor(Math.random() * matchCards.length));
   const [gameChoice, setGameChoice] = useState<string | null>(null);
   const [gameScore, setGameScore] = useState(0);
   const [quizIndex, setQuizIndex] = useState(0);
@@ -216,7 +248,7 @@ function Home() {
     const query = searchTerm.toLowerCase();
     const matchesQuery = !query || item.arabic.includes(searchTerm) || item.meaning.toLowerCase().includes(query) || item.transliteration.toLowerCase().includes(query);
     return matchesQuery && (category === "All" || category === "الكل" || item.category === category);
-  }), [searchTerm, category, language]);
+  }), [searchTerm, category, language, learningTarget]);
   const progress = ((quizIndex + (completed ? 1 : 0)) / activeQuizQuestions.length) * 100;
 
   const switchLanguage = (next: "en" | "ar") => { setLanguage(next); setLearningTarget("opposite"); setQuizIndex(0); setSelectedAnswer(null); setCompleted(false); setCategory(next === "ar" ? "الكل" : "All"); setSelectedLetter(next === "en" ? letters[0] : englishLetters[0]); };
@@ -225,9 +257,9 @@ function Home() {
   const chooseAnswer = (answer: string) => { if (selectedAnswer) return; setSelectedAnswer(answer); if (answer === question.answer) setScore((current) => current + 1); };
   const chooseGameOption = (choice: string) => { if (gameChoice) return; setGameChoice(choice); if (choice === (gameType === "words" ? matchCards[gameIndex].word : matchCards[gameIndex].letter)) setGameScore((current) => current + 1); };
   const nextGameCard = () => { setGameIndex((current) => (current + 1) % matchCards.length); setGameChoice(null); };
-  const resetGame = () => { setGameIndex(0); setGameChoice(null); setGameScore(0); };
+  const resetGame = () => { setGameIndex(Math.floor(Math.random() * matchCards.length)); setGameChoice(null); setGameScore(0); };
   const nextQuestion = () => { if (quizIndex === activeQuizQuestions.length - 1) { setCompleted(true); return; } setQuizIndex((current) => current + 1); setSelectedAnswer(null); };
-  const resetQuiz = () => { setQuizIndex(0); setSelectedAnswer(null); setScore(0); setCompleted(false); };
+  const resetQuiz = () => { setQuizIndex(Math.floor(Math.random() * activeQuizQuestions.length)); setSelectedAnswer(null); setScore(0); setCompleted(false); };
 
   return (
     <div dir={language === "ar" ? "rtl" : "ltr"} className="min-h-screen overflow-x-hidden bg-paper text-ink">
