@@ -151,10 +151,10 @@ const quizQuestions: QuizQuestion[] = [
 ];
 
 const matchCards: MatchCard[] = [
-  { word: "تُفَّاح", meaning: "apple", letter: "ت", image: "/manus-storage/game-apple_74c366f6.png", choices: ["تُفَّاح", "قِطَّة", "شَمْس", "كِتَاب"] },
-  { word: "قِطَّة", meaning: "cat", letter: "ق", image: "/manus-storage/game-cat_16a4c3ab.png", choices: ["شَمْس", "قِطَّة", "كِتَاب", "تُفَّاح"] },
-  { word: "شَمْس", meaning: "sun", letter: "ش", image: "/manus-storage/game-sun_667c5f5e.png", choices: ["كِتَاب", "تُفَّاح", "شَمْس", "قِطَّة"] },
-  { word: "كِتَاب", meaning: "book", letter: "ك", image: "/manus-storage/game-book_4af57f67.png", choices: ["قِطَّة", "كِتَاب", "شَمْس", "تُفَّاح"] },
+  { word: "تُفَّاح", meaning: "apple", letter: "ت", image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=900&q=85", choices: ["تُفَّاح", "قِطَّة", "شَمْس", "كِتَاب"] },
+  { word: "قِطَّة", meaning: "cat", letter: "ق", image: "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=900&q=85", choices: ["شَمْس", "قِطَّة", "كِتَاب", "تُفَّاح"] },
+  { word: "شَمْس", meaning: "sun", letter: "ش", image: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=85", choices: ["كِتَاب", "تُفَّاح", "شَمْس", "قِطَّة"] },
+  { word: "كِتَاب", meaning: "book", letter: "ك", image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=900&q=85", choices: ["قِطَّة", "كِتَاب", "شَمْس", "تُفَّاح"] },
 ];
 
 function getLetterChoices(card: MatchCard) {
