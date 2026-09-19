@@ -200,7 +200,7 @@ function Home() {
               <p className="mt-7 max-w-md text-base leading-8 text-paper/70 sm:text-lg">Short lessons, clear words, and practice that helps you speak Arabic with confidence — one step every day.</p>
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <button className="button-primary" onClick={() => scrollTo("quiz", "Practice")}><PlayCircle size={18} /> Start practice</button>
-                <button className="button-on-dark" onClick={() => scrollTo("words", "Words")}><BookOpen size={17} /> تصفح Words</button>
+                <button className="button-on-dark" onClick={() => scrollTo("words", "Words")}><BookOpen size={17} /> Browse Words</button>
               </div>
               <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-bold text-paper/55">
                 <span className="flex items-center gap-2"><CheckCircle2 size={15} className="text-sage" /> No sign-up</span>
