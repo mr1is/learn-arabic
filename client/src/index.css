@@ -199,6 +199,10 @@ button { border: 0; }
 .category-filter.is-active { border-color: var(--sage); background: var(--sage); color: #ffffff; box-shadow: 0 5px 12px rgba(120,165,157,.22); }
 .category-filter.is-active:hover { background: #648f88; color: #ffffff; }
 button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid rgba(120,165,157,.45); outline-offset: 3px; }
+.target-switch { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; border: 1px solid rgba(120,165,157,.45); border-radius: 14px; padding: .72rem .9rem; color: #527b74; background: rgba(120,165,157,.10); font-size: .72rem; font-weight: 800; white-space: nowrap; transition: background-color 160ms ease, color 160ms ease, transform 160ms ease, border-color 160ms ease; }
+.target-switch:hover { transform: translateY(-1px); border-color: var(--sage); background: rgba(120,165,157,.18); color: #3f665f; }
+.target-switch.is-active { border-color: var(--coral); background: rgba(232,133,108,.13); color: #b45d4a; }
+.target-switch.is-active:hover { background: rgba(232,133,108,.20); }
 
 .hero-panel {
   position: relative;
