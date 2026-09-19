@@ -341,3 +341,11 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .library-tab.is-active { border-color: #0b2d59; background: #0b2d59; color: #ffffff; box-shadow: 0 6px 14px rgba(11,45,89,.20); }
 .library-tab.is-active:hover { background: #123e75; color: #ffffff; }
 [dir="rtl"] .library-tab { font-family: 'Amiri', serif; font-size: .95rem; }
+
+
+.library-tab-icon { flex: 0 0 auto; }
+.library-tab-letters { flex: 0 0 auto; font-family: 'Amiri', serif; font-size: 1.05rem; letter-spacing: .08em; }
+[dir="rtl"].library-tab { direction: rtl; min-width: 150px; font-family: 'Amiri', serif; font-size: 1rem; }
+[dir="rtl"].library-tab:first-child { min-width: 150px; }
+[dir="rtl"].library-tab.is-active { color: #ffffff !important; background: #0b2d59 !important; border-color: #0b2d59 !important; }
+[dir="rtl"].library-tab:not(.is-active) { color: #0b2d59 !important; background: #fffdf7; border-color: rgba(11,45,89,.16); }
