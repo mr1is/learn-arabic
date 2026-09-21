@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mr1is.github.io/learn-arabic/sitemap.xml
