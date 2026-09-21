@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mr1is.github.io/learn-arabic/sitemap.xml
+Sitemap: https://learn-arabic-brown.vercel.app/sitemap.xml
